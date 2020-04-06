@@ -14,9 +14,9 @@ namespace EurocomFontysHealth
 {
     public static class ClientService
     {
-        [FunctionName("ClientsGetAll")]
+        [FunctionName("ClientGetAll")]
         public static async Task<IActionResult> GetAll(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "clients/")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "clients/")] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("GetAll() called");
@@ -25,9 +25,9 @@ namespace EurocomFontysHealth
             return new OkObjectResult(results);
         }
 
-        [FunctionName("ClientsGetByID")]
+        [FunctionName("ClientGetByID")]
         public static async Task<IActionResult> GetByID(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "clients/{id}/")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "clients/{id}/")] HttpRequest req,
             string id,
             ILogger log)
         {
@@ -37,7 +37,7 @@ namespace EurocomFontysHealth
             if(guid == null) { return new BadRequestObjectResult("Invalid guid"); }
 
             var results = new DataSource.ClientDataSource().GetFiltered(c => c.ID == guid.Value).FirstOrDefault();
-            return results != null ? (IActionResult)new OkObjectResult(results) : (IActionResult)new NotFoundObjectResult();
+            return results != null ? (IActionResult)new OkObjectResult(results) : (IActionResult)new NotFoundObjectResult("No client found with identifier");
         }
     }
 }

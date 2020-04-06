@@ -1,9 +1,7 @@
-using System;
 namespace EurocomFontysHealth.Library.Entities
 {
-    public class HealthDevice
+    public class HealthDevice : Entity
     {
-        public Guid ID { get; set; }
         public Client Client { get; set; }
     }
 }
