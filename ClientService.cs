@@ -7,29 +7,37 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System.Linq;
+using EurocomFontysHealth.Library.Helpers;
 
 namespace EurocomFontysHealth
 {
     public static class ClientService
     {
-        [FunctionName("ClientService")]
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+        [FunctionName("ClientsGetAll")]
+        public static async Task<IActionResult> GetAll(
+            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "clients/")] HttpRequest req,
             ILogger log)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+            log.LogInformation("GetAll() called");
 
-            string name = req.Query["name"];
+            var results = new DataSource.ClientDataSource().GetAll();
+            return new OkObjectResult(results);
+        }
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
+        [FunctionName("ClientsGetByID")]
+        public static async Task<IActionResult> GetByID(
+            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "clients/{id}/")] HttpRequest req,
+            string id,
+            ILogger log)
+        {
+            log.LogInformation("GetSingle() called");
 
-            string responseMessage = string.IsNullOrEmpty(name)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {name}. This HTTP triggered function executed successfully.";
+            var guid = GuidHelper.GetFromString(id);
+            if(guid == null) { return new BadRequestObjectResult("Invalid guid"); }
 
-            return new OkObjectResult(responseMessage);
+            var results = new DataSource.ClientDataSource().GetFiltered(c => c.ID == guid.Value).FirstOrDefault();
+            return results != null ? (IActionResult)new OkObjectResult(results) : (IActionResult)new NotFoundObjectResult();
         }
     }
 }
