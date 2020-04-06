@@ -15,7 +15,7 @@ namespace EurocomFontysHealth
     {
         [FunctionName("MedicineDispenserGetAll")]
         public static async Task<IActionResult> GetAll(
-             [HttpTrigger(AuthorizationLevel.Function, "get", Route = "medicinedispenser/")] HttpRequest req,
+             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "medicinedispenser/")] HttpRequest req,
              ILogger log)
         {
             var res = new DataSource.MedicineDispenserDataSource().GetAll();
@@ -24,7 +24,7 @@ namespace EurocomFontysHealth
 
         [FunctionName("MedicineDispenserGetByID")]
         public static async Task<IActionResult> GetAllGetByID(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "medicinedispenser/{id}/")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "medicinedispenser/{id}/")] HttpRequest req,
             string id,
             ILogger log)
         {

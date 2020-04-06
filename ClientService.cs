@@ -16,7 +16,7 @@ namespace EurocomFontysHealth
     {
         [FunctionName("ClientGetAll")]
         public static async Task<IActionResult> GetAll(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "clients/")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "clients/")] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("GetAll() called");
@@ -27,7 +27,7 @@ namespace EurocomFontysHealth
 
         [FunctionName("ClientGetByID")]
         public static async Task<IActionResult> GetByID(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "clients/{id}/")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "clients/{id}/")] HttpRequest req,
             string id,
             ILogger log)
         {

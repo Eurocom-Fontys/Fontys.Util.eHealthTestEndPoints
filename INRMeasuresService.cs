@@ -15,7 +15,7 @@ namespace EurocomFontysHealth
     {
         [FunctionName("INRGetAll")]
         public static async Task<IActionResult> GetAll(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "inr/")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "inr/")] HttpRequest req,
             ILogger log)
         {
             var res = new DataSource.INRDeviceDataSource().GetAll();
@@ -24,7 +24,7 @@ namespace EurocomFontysHealth
 
         [FunctionName("INRGetByID")]
         public static async Task<IActionResult> GetAllGetByID(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "inr/{id}/")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "inr/{id}/")] HttpRequest req,
             string id,
             ILogger log)
         {
