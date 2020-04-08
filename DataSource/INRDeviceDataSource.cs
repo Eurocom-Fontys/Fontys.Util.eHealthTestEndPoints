@@ -1,18 +1,9 @@
 ﻿using EurocomFontysHealth.Library.Entities;
 using EurocomFontysHealth.Library.Helpers;
-using System;
 using System.Collections.Generic;
 
 namespace EurocomFontysHealth.DataSource
 {
-    public abstract class DeviceDataSourceBase<T> : DataSourceBase<T>
-        where T : Entity
-    {
-        protected Client GetClient(int id)
-        {
-            return new ClientDataSource().GetByID(GuidHelper.GenerateGuid(id)) ?? throw new Exception($"Cannot find client {id}");
-        }
-    }
     public class INRDeviceDataSource : DeviceDataSourceBase<INRDevice>
     {
         public override IEnumerable<INRDevice> GetAll()
