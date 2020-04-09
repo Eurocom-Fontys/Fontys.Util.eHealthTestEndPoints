@@ -9,7 +9,7 @@ namespace EurocomFontysHealth.DataSource
         where T : Entity
     {
         public abstract IEnumerable<T> GetAll();
-    
+
         public IEnumerable<T> GetFiltered(Func<T, bool> predicate)
         {
             return GetAll().Where(a => predicate(a)).ToList();

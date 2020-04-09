@@ -23,15 +23,30 @@ namespace EurocomFontysHealth
         }
 
         [FunctionName("MedicineDispenserGetByID")]
-        public static async Task<IActionResult> GetAllGetByID(
+        public static async Task<IActionResult> GetByID(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "medicinedispenser/{id}/")] HttpRequest req,
             string id,
             ILogger log)
         {
             var guid = GuidHelper.GetFromString(id);
             if (guid == null) { return new BadRequestObjectResult("Invalid GUID"); }
-            var res = new DataSource.INRDeviceDataSource().GetByID(guid.Value);
+            var res = new DataSource.MedicineDispenserDataSource().GetByID(guid.Value);
             return res != null ? (IActionResult)new OkObjectResult(res) : (IActionResult)new NotFoundObjectResult("No dispenser device found with ID");
+        }
+
+        [FunctionName("MedicineDispenserGetEventsByDeviceID")]
+        public static async Task<IActionResult> GetEventsByDeviceID(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "medicinedispenser/{deviceID}/events")] HttpRequest req,
+            string deviceID,
+            ILogger log)
+        {
+            var deviceIdGUID = GuidHelper.GetFromString(deviceID);
+            if (deviceIdGUID == null) { return new BadRequestObjectResult("Invalid GUID"); }
+            var device = new DataSource.MedicineDispenserDataSource().GetByID(deviceIdGUID.Value);
+            if(device == null) { return new NotFoundObjectResult("No dispenser found with this ID"); }
+
+            var results = new DataSource.MedicineDispenserEventDataSource().GetFiltered(e => e.DeviceID == deviceIdGUID);
+            return new OkObjectResult(results);
         }
     }
 }

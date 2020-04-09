@@ -23,7 +23,7 @@ namespace EurocomFontysHealth
         }
 
         [FunctionName("INRGetByID")]
-        public static async Task<IActionResult> GetAllGetByID(
+        public static async Task<IActionResult> GetByID(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "inr/{id}/")] HttpRequest req,
             string id,
             ILogger log)
@@ -32,6 +32,21 @@ namespace EurocomFontysHealth
             if(guid == null) { return new BadRequestObjectResult("Invalid GUID"); }
             var res = new DataSource.INRDeviceDataSource().GetByID(guid.Value);
             return res != null ? (IActionResult)new OkObjectResult(res) : (IActionResult)new NotFoundObjectResult("No INR device found with ID");
+        }
+
+        [FunctionName("INRGetMeasurementsByDeviceID")]
+        public static async Task<IActionResult> GetMeasurementsByDeviceID(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "inr/{deviceID}/measurements/")] HttpRequest req,
+            string deviceID,
+            ILogger log)
+        {
+            var deviceIDGuid = GuidHelper.GetFromString(deviceID);
+            if (deviceIDGuid == null) { return new BadRequestObjectResult("Invalid device GUID"); }
+            var device = new DataSource.INRDeviceDataSource().GetByID(deviceIDGuid.Value);
+            if(device == null) { return new NotFoundObjectResult("Unknown INR device"); }
+
+            var res = new DataSource.INRMeasurementDataSource().GetFiltered(m => m.DeviceID == deviceIDGuid);
+            return new OkObjectResult(res);
         }
     }
 }
