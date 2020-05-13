@@ -25,7 +25,7 @@
 
         public const int MedicineDispenser_Device_1 = 9002;
         public const int MedicineDispenser_Device_2 = 9005;
-        public const int MedicineDispenser_Device_3 = 9002;
+        public const int MedicineDispenser_Device_3 = 9008;
         public const int MedicineDispenser_Device_4  = 9003;
 
     }
