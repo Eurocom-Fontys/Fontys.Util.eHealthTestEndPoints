@@ -53,9 +53,14 @@ Get the events for a given dispenser (via the {deviceID} parameter). The events 
 ### MedicineSchemaGetForClient
 [GET] https://eurocomfontyshealthservice.azurewebsites.net/api/clients/{clientId}/medicinecalendar/
 
-Get all medicine schemas active for the client
+Get all medicine schemas active for the client. If a client has no schema's or the client is not known we will return an empty list.
 
 ### MedicineSchemaGetById
 [GET] https://eurocomfontyshealthservice.azurewebsites.net/api/clients/{clientId}/medicinecalendar/{id}
 
-Get a specific schema for a client based on the client and schema id
+Get a specific schema for a client based on the client and schema id. The clientId should be the ID associated on the schema.
+
+## MedicineSchemaGetAll
+[GET] https://eurocomfontyshealthservice.azurewebsites.net/api/debug/medicinecalendar/
+
+Debug function to retrieve ALL calendars, this function is only for the development purpose in the prototype and should not be used in demonstrator apps. This endpoint will be *de-published* when the demo's start.
