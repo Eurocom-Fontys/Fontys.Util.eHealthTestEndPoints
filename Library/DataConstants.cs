@@ -4,7 +4,8 @@
     {
         public const short GuidSpace_Client = 100;
         public const short GuidSpace_INR = 200;
-        public const short GuidSpace_MedicineDispenser = 200;
+        public const short GuidSpace_MedicineDispenser = 300;
+        public const short GuidSpace_MedicineSchema = 400;
 
         public const int Client_Female_1 = 1;
         public const int Client_Female_2 = 2;
