@@ -1,9 +1,10 @@
-﻿using EurocomFontysHealth.Library.Entities;
+﻿using EurocomFontysHealth.Library;
+using EurocomFontysHealth.Library.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EurocomFontysHealth.DataSource
+namespace EurocomFontysHealth.INR
 {
     public class INRMeasurementDataSource : MeasurementDataSourceBase<INRMeasurement>
     {

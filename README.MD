@@ -49,3 +49,13 @@ Get a specific dispenser (identified with the {id} parameter) and the associated
 [GET] https://eurocomfontyshealthservice.azurewebsites.net/api/medicinedispenser/{deviceID}/events/
 
 Get the events for a given dispenser (via the {deviceID} parameter). The events will indicate when the medicines were offered and if/when they were taken.
+
+### MedicineSchemaGetForClient
+[GET] https://eurocomfontyshealthservice.azurewebsites.net/api/clients/{clientId}/medicinecalendar/
+
+Get all medicine schemas active for the client
+
+### MedicineSchemaGetById
+[GET] https://eurocomfontyshealthservice.azurewebsites.net/api/clients/{clientId}/medicinecalendar/{id}
+
+Get a specific schema for a client based on the client and schema id

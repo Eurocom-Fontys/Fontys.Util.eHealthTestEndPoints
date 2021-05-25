@@ -1,8 +1,9 @@
-﻿using EurocomFontysHealth.Library.Entities;
+﻿using EurocomFontysHealth.Library;
+using EurocomFontysHealth.Library.Entities;
 using EurocomFontysHealth.Library.Helpers;
 using System.Collections.Generic;
 
-namespace EurocomFontysHealth.DataSource
+namespace EurocomFontysHealth.INR
 {
     public class INRDeviceDataSource : DeviceDataSourceBase<INRDevice>
     {

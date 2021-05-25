@@ -1,4 +1,4 @@
-﻿namespace EurocomFontysHealth.DataSource
+﻿namespace EurocomFontysHealth.Library
 {
     public class DataConstants
     {
@@ -27,6 +27,13 @@
         public const int MedicineDispenser_Device_2 = 9005;
         public const int MedicineDispenser_Device_3 = 9008;
         public const int MedicineDispenser_Device_4  = 9003;
+
+        public const int MedicineSchema_Female_1_1 = 6010;
+        public const int MedicineSchema_Female_1_2 = 6011;
+        public const int MedicineSchema_Male_3_1 = 6021;
+        public const int MedicineSchema_Male_5_1 = 6031;
+        public const int MedicineSchema_Male_5_2 = 6032;
+        public const int MedicineSchema_Male_5_3 = 6033;
 
     }
 }

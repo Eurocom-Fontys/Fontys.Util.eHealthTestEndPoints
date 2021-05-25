@@ -1,13 +1,14 @@
-﻿using EurocomFontysHealth.Library.Entities;
+﻿using EurocomFontysHealth.Library;
+using Entities = EurocomFontysHealth.Library.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EurocomFontysHealth.DataSource
+namespace EurocomFontysHealth.MedicineDispenser
 {
-    public class MedicineDispenserEventDataSource : MeasurementDataSourceBase<DispenserEvent>
+    public class MedicineDispenserEventDataSource : MeasurementDataSourceBase<Entities.DispenserEvent>
     {
-        public override IEnumerable<DispenserEvent> GetAll()
+        public override IEnumerable<Entities.DispenserEvent> GetAll()
         {
             return new MedicineDispenserDataSource().GetAll().SelectMany(GetEventsForDispenser);
         }
@@ -15,7 +16,7 @@ namespace EurocomFontysHealth.DataSource
         private DateTime DispensingStartDate = new DateTime(2020, 3, 1);
         private DateTime DispensingEndDate = DateTime.Now;
 
-        private IEnumerable<DispenserEvent> GetEventsForDispenser(MedicineDispenser dispenser)
+        private IEnumerable<Entities.DispenserEvent> GetEventsForDispenser(Entities.MedicineDispenser dispenser)
         {
             int nrOfDispensesPerDay = TakeRandom(new[] { 1, 1, 1, 2, 3, 3, 2, 2, 2, 1, 1 });
             DateTime currDate = DispensingStartDate;
@@ -37,7 +38,7 @@ namespace EurocomFontysHealth.DataSource
                         retrieval = lastHandOut.AddMinutes(TakeRandom(new[] { 1, 2, 3, 4, 1, 2, 5, 15, 11 })); //Add an interval to the offer time to have a retrieval
                     }
 
-                    yield return new DispenserEvent()
+                    yield return new Entities.DispenserEvent()
                     {
                         ID = Guid.NewGuid(),
                         DeviceID = dispenser.ID,
@@ -45,7 +46,7 @@ namespace EurocomFontysHealth.DataSource
                         Offering2 = try2,
                         Offering3 = try3,
                         Retrieval = retrieval,
-                        Result = succeeded ? DispenserEventResult.Taken : DispenserEventResult.NotTaken
+                        Result = succeeded ? Entities.DispenserEventResult.Taken : Entities.DispenserEventResult.NotTaken
                     };
 
                     //Set a new moment for the day by adding time to the hour offset
