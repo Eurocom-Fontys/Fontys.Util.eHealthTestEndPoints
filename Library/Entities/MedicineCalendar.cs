@@ -6,11 +6,9 @@ namespace EurocomFontysHealth.Library.Entities
     /// <summary>
     /// Container for the Medicine administration, this is filled by the responsible doctor
     /// </summary>
-    public class MedicineCalendar
+    public class MedicineCalendar : Entity
     {
         public Guid ClientId { get; set; }
-
-        public Guid MedicineCalendarId { get; set; }
 
         public Medicine Medicine { get; set; }
 

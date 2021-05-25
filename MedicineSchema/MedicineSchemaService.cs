@@ -22,8 +22,8 @@ namespace EurocomFontysHealth.MedicineSchema
              ILogger log)
         {
             log.LogInformation($"Get med.schema for client: {clientId} called");
-
-            return new OkObjectResult("hoipiepeloi");
+            //TODO: Filter on clients
+            return new OkObjectResult(new MedicineSchemaDataSource().GetAll());
         }
 
         [FunctionName("MedicineSchemaGetById")]
@@ -33,8 +33,11 @@ namespace EurocomFontysHealth.MedicineSchema
              string id,
              ILogger log)
         {
+            var guid = GuidHelper.GetFromString(id);
             log.LogInformation($"Get med.schema {id} for client: {clientId} called");
-            return new OkObjectResult("hoipiepeloi");
+            //TODO: Validate clientID
+            return new OkObjectResult(new MedicineSchemaDataSource().GetByID(guid.Value));
+           
         }
     }
 
