@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 using System.Linq;
 using EurocomFontysHealth.Library.Helpers;
 
-namespace EurocomFontysHealth
+namespace EurocomFontysHealth.Client
 {
     public static class ClientService
     {
@@ -21,7 +21,7 @@ namespace EurocomFontysHealth
         {
             log.LogInformation("GetAll() called");
 
-            var results = new DataSource.ClientDataSource().GetAll();
+            var results = new ClientDataSource().GetAll();
             return new OkObjectResult(results);
         }
 
@@ -36,7 +36,7 @@ namespace EurocomFontysHealth
             var guid = GuidHelper.GetFromString(id);
             if(guid == null) { return new BadRequestObjectResult("Invalid guid"); }
 
-            var results = new DataSource.ClientDataSource().GetFiltered(c => c.ID == guid.Value).FirstOrDefault();
+            var results = new ClientDataSource().GetFiltered(c => c.ID == guid.Value).FirstOrDefault();
             return results != null ? (IActionResult)new OkObjectResult(results) : (IActionResult)new NotFoundObjectResult("No client found with identifier");
         }
     }

@@ -1,4 +1,4 @@
-﻿namespace EurocomFontysHealth.DataSource
+﻿namespace EurocomFontysHealth.Library
 {
     public class DataConstants
     {

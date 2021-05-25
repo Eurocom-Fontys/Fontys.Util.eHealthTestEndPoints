@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using EurocomFontysHealth.Library.Helpers;
 
-namespace EurocomFontysHealth
+namespace EurocomFontysHealth.INR
 {
     public static class INRMeasuresService
     {
@@ -18,7 +18,7 @@ namespace EurocomFontysHealth
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "inr/")] HttpRequest req,
             ILogger log)
         {
-            var res = new DataSource.INRDeviceDataSource().GetAll();
+            var res = new INRDeviceDataSource().GetAll();
             return new OkObjectResult(res);
         }
 
@@ -30,7 +30,7 @@ namespace EurocomFontysHealth
         {
             var guid = GuidHelper.GetFromString(id);
             if(guid == null) { return new BadRequestObjectResult("Invalid GUID"); }
-            var res = new DataSource.INRDeviceDataSource().GetByID(guid.Value);
+            var res = new INRDeviceDataSource().GetByID(guid.Value);
             return res != null ? (IActionResult)new OkObjectResult(res) : (IActionResult)new NotFoundObjectResult("No INR device found with ID");
         }
 
@@ -42,10 +42,10 @@ namespace EurocomFontysHealth
         {
             var deviceIDGuid = GuidHelper.GetFromString(deviceID);
             if (deviceIDGuid == null) { return new BadRequestObjectResult("Invalid device GUID"); }
-            var device = new DataSource.INRDeviceDataSource().GetByID(deviceIDGuid.Value);
+            var device = new INRDeviceDataSource().GetByID(deviceIDGuid.Value);
             if(device == null) { return new NotFoundObjectResult("Unknown INR device"); }
 
-            var res = new DataSource.INRMeasurementDataSource().GetFiltered(m => m.DeviceID == deviceIDGuid);
+            var res = new INRMeasurementDataSource().GetFiltered(m => m.DeviceID == deviceIDGuid);
             return new OkObjectResult(res);
         }
     }

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EurocomFontysHealth.DataSource
+namespace EurocomFontysHealth.Library
 {
     public abstract class MeasurementDataSourceBase<T> : DataSourceBase<T>
             where T : Entity

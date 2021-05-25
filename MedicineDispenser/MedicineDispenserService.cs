@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using EurocomFontysHealth.Library.Helpers;
 
-namespace EurocomFontysHealth
+namespace EurocomFontysHealth.MedicineDispenser
 {
     public static class MedicineDispenserService
     {
@@ -18,7 +18,7 @@ namespace EurocomFontysHealth
              [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "medicinedispenser/")] HttpRequest req,
              ILogger log)
         {
-            var res = new DataSource.MedicineDispenserDataSource().GetAll();
+            var res = new MedicineDispenserDataSource().GetAll();
             return new OkObjectResult(res);
         }
 
@@ -30,7 +30,7 @@ namespace EurocomFontysHealth
         {
             var guid = GuidHelper.GetFromString(id);
             if (guid == null) { return new BadRequestObjectResult("Invalid GUID"); }
-            var res = new DataSource.MedicineDispenserDataSource().GetByID(guid.Value);
+            var res = new MedicineDispenserDataSource().GetByID(guid.Value);
             return res != null ? (IActionResult)new OkObjectResult(res) : (IActionResult)new NotFoundObjectResult("No dispenser device found with ID");
         }
 
@@ -42,10 +42,10 @@ namespace EurocomFontysHealth
         {
             var deviceIdGUID = GuidHelper.GetFromString(deviceID);
             if (deviceIdGUID == null) { return new BadRequestObjectResult("Invalid GUID"); }
-            var device = new DataSource.MedicineDispenserDataSource().GetByID(deviceIdGUID.Value);
+            var device = new MedicineDispenserDataSource().GetByID(deviceIdGUID.Value);
             if(device == null) { return new NotFoundObjectResult("No dispenser found with this ID"); }
 
-            var results = new DataSource.MedicineDispenserEventDataSource().GetFiltered(e => e.DeviceID == deviceIdGUID);
+            var results = new MedicineDispenserEventDataSource().GetFiltered(e => e.DeviceID == deviceIdGUID);
             return new OkObjectResult(results);
         }
     }
